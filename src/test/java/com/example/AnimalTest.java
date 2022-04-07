@@ -20,7 +20,7 @@ public class AnimalTest {
         this.expectedFood = expectedFood;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: тип животного - {0}, ожидаемая еда - {1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Травоядное", List.of("Трава", "Различные растения")},

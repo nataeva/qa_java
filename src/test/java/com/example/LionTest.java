@@ -25,7 +25,7 @@ public class LionTest {
         this.expectedHasMane = expectedHasMane;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: пол льва - {0}, должен иметь гриву - {1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Самец", true},
@@ -35,7 +35,7 @@ public class LionTest {
 
     @Test
     public void testHasManeHappyCases() throws Exception {
-        Lion lion = new Lion(sex);
+        Lion lion = new Lion(sex, new Feline());
 
         boolean resultHasMane = lion.doesHaveMane();
 
@@ -48,15 +48,26 @@ public class LionTest {
     public void testHasManeOtherSex() {
         assertThrows("Should have thrown an exception!",
                 Exception.class,
-                () -> new Lion("Other sex"));
+                () -> new Lion("Other sex", new Feline()));
     }
 
     @Test
     public void testGetFood() throws Exception {
-        Lion lion = Mockito.spy(new Lion("Самец"));
+        Feline mockFeline = Mockito.mock(Feline.class);
+        Lion lion = Mockito.spy(new Lion("Самец", mockFeline));
 
         lion.getFood();
 
-        verify(lion, times(1)).getFood("Хищник");
+        verify(mockFeline, times(1)).getFood("Хищник");
+    }
+
+    @Test
+    public void testGetKittens() throws Exception {
+        Feline mockFeline = Mockito.mock(Feline.class);
+        Lion lion = Mockito.spy(new Lion("Самец", mockFeline));
+
+        lion.getKittens();
+
+        verify(mockFeline, times(1)).getKittens();
     }
 }

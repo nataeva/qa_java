@@ -2,12 +2,14 @@ package com.example;
 
 import java.util.List;
 
-// Не совсем поняла, что значит "изолировать" класс. Объясните, пожалуйста, в комментариях к коду
-public class Lion extends Feline {
+public class Lion {
 
     boolean hasMane;
+    private final Feline feline;
 
-    public Lion(String sex) throws Exception {
+    public Lion(String sex, Feline feline) throws Exception {
+        this.feline = feline;
+
         if ("Самец".equals(sex)) {
             hasMane = true;
         } else if ("Самка".equals(sex)) {
@@ -17,11 +19,15 @@ public class Lion extends Feline {
         }
     }
 
+    public int getKittens() {
+        return feline.getKittens();
+    }
+
     public boolean doesHaveMane() {
         return hasMane;
     }
 
     public List<String> getFood() throws Exception {
-        return getFood("Хищник");
+        return feline.getFood("Хищник");
     }
 }
